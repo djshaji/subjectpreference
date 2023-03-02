@@ -257,7 +257,7 @@ if ($_POST != null) {
       else
         console.error (`cannot find element ${i}`)
 
-      if (data.hasOwnProperty ("md")) {
+      if (data ["md"] != null) {
         document.getElementById ("submit").classList.add ("d-none")
         document.getElementById ("check").classList.add ("d-none")
       }
