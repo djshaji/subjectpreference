@@ -49,6 +49,16 @@ $fields = [
   "Value Added Course 2"
 ];
 
+$_fields = array (
+  "phone" => "Phone",
+  "mail" => "Email",
+  "major" => "MajorSubject",
+  "minor" => "MinorSubject",
+  "aec" => "AbilityEnhancementCourse",
+  "vac1" => "ValueAddedCourse1",
+  "vac2" => "ValueAddedCourse2"
+);
+
 $db = new PDO ("mysql:host=localhost;dbname=admission22;charset=utf8mb4", "domino", "remembermyname");
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 
@@ -85,6 +95,11 @@ if ($_POST != null) {
       $auth = null ;
     } else {
       $auth = $ret ;
+      foreach ($_fields as $f => $v) {
+        $auth [$v] = $ret [$f];
+      }
+      echo "<script>data = " .json_encode ($auth). "</script>";
+
     }
   } else {
     // set in db
@@ -141,11 +156,12 @@ if ($_POST != null) {
       //  var_dump ($ret);
       if ($ret === false) {
         ?>
+        <div></div>
         <script>
           Swal.fire(
           'Application submitted successfully',
           'Your form was filled successfully.',
-          'info'
+          'success'
         ) ;
         </script>
         <?php
@@ -185,6 +201,9 @@ if ($_POST != null) {
           University Roll Number: <h3 class="text-center"><?php echo $auth ["urollno"] ;?></h3>
           University Registration Number: <h3 class="text-center"><?php echo $auth ["uid"] ;?></h3>
 
+          <div class="d-flex justify-content-center">
+            <a href="javascript:logout ()" class="btn btn-danger shadow">Logout</a>
+          </div>
           <?php foreach ($fields as $f) { ?>
             <div class="input-group m-2">
               <span class="input-group-text" id="basic-addon1"><?php echo $f ;?></span>
@@ -240,4 +259,27 @@ if ($_POST != null) {
       }
     }
   }
+
+function logout () {
+  Swal.fire({
+  title: 'Log out?',
+  text: "Are you sure you want to log out?",
+  icon: 'warning',
+  showCancelButton: true,
+  cancelButtonColor: '#3085d6',
+  confirmButtonColor: '#d33',
+  confirmButtonText: 'Logout'
+}).then((result) => {
+  if (result.isConfirmed) {
+    /*
+    Swal.fire(
+      'Logged out',
+      'You have been logged out.',
+      'success'
+    )
+    */
+   location.href = "/"
+  }
+})  
+}
 </script>
