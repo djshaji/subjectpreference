@@ -59,9 +59,7 @@ $_fields = array (
   "vac2" => "ValueAddedCourse2"
 );
 
-if ($_SERVER ["name"] == "adm.me")
-  $db = new PDO ("mysql:host=localhost;dbname=admission22;charset=utf8mb4", "ftop", "jennahaze");
-
+$db = new PDO ("mysql:host=localhost;dbname=admission22;charset=utf8mb4", "ftop", "jennahaze");
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 
 $stream = null ;
