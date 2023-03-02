@@ -185,7 +185,7 @@ if ($_POST != null) {
     
     <form method="post" class="row  justify-content-center">
       <div class="border shadow p-4 col-md-5 m-5 row justify-content-center d-flex">
-        <img class="img-fluid col-12" src="/logo.png" width="300">
+        <img class="img-fluid col-12" src="logo.png" width="300">
         <h4 class="p-2 alert alert-primary m-2 text-center"><i class="fa-solid fa-pen-to-square me-2"></i>Semester 2 Subject Preference</h4>
         <?php if ($auth == null) {?>
         <div class="input-group  m-2">
