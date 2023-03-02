@@ -93,6 +93,9 @@ if ($_POST != null) {
     $ret = $db -> query ($sql) ->fetch () ;
     if ($ret === false) {
       $auth = null ;
+      ?>
+        <div class="alert alert-danger h4"><i class="fa-solid fa-shield-xmark me-2"></i>Incorrect Registration or Roll Number </div>
+      <?php
     } else {
       $auth = $ret ;
       foreach ($_fields as $f => $v) {
@@ -245,8 +248,9 @@ if ($_POST != null) {
     for (i in data) {
       el = document.getElementById (i)
       if (el) {
-        el.value = data [i]
-        if (data.hasOwnProperty ("md")) {
+        if (data [i] != null)
+          el.value = data [i]
+        if (data ["md"] != null) {
           el.setAttribute ("disabled", true)
         }
       }
