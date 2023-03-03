@@ -2,6 +2,12 @@
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
+if(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+  header("Location: https://admission6.devikacloud.in");
+  die();
+    
+}
+
 $CAPPING = 80 ;
 $subjects = array (
   "science" => [
@@ -322,7 +328,7 @@ function logout () {
       'success'
     )
     */
-   location.href = "/"
+   location.href = location.href
   }
 })  
 }
