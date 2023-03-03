@@ -413,8 +413,8 @@ function check () {
   md2 = document.getElementById ("md").value
   maj = document.getElementById ("MajorSubject").value
 
-  majStream = "Arts"
-  mdStream = "Arts"
+  majStream = "1"
+  mdStream = "2"
   for (stream of [
     "Arts",
     "Science",
@@ -437,6 +437,8 @@ function check () {
     
     
   }
+
+  if (md1 == "" && md2 == "") return 
 
   if (md1 == md2) {
     document.getElementById ("md").value = ""
