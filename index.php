@@ -2,7 +2,7 @@
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
-if(filter_var($_SERVER ["REMOTE_ADDR"], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+if($_SERVER['SERVER_NAME'] != "admission6.devikacloud.in" && filter_var($_SERVER ["REMOTE_ADDR"], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
   header("Location: https://admission6.devikacloud.in");
   die();
     
