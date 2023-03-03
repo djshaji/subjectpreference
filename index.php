@@ -53,8 +53,8 @@ $fields = [
   "Phone",
   "Email",
   "Class Roll Number",
-  "Major Subject",
-  "Minor Subject",
+  // "Major Subject",
+  // "Minor Subject",
   "Ability Enhancement Course",
   "Value Added Course 1",
   "Value Added Course 2"
@@ -197,6 +197,64 @@ if ($_POST != null) {
   }
 } 
 ?>
+<script>
+
+subjects = {
+  "Science": [
+    "Bio-Technology",
+    "Botany",
+    "Chemistry",
+    "Computer Applications",
+    "Electronics",
+    "Geography",
+    "Geology",
+    "Mathematics",
+    "Physics",
+    "Sericulture",
+    "Statistics",
+    "Zoology"
+  ], "Arts": [
+    "Business Management",
+    "Dogri",
+    "English / English Literature",
+    "Hindi",
+    "Management",
+    "Marketing Management",
+    "Music",
+    "Urdu"
+  ], "Social": [
+    "Education",
+    "Philosophy",
+    "Psychology",
+    "Public Administration",
+    "Economics",
+    "History",
+    "Political Science",
+    "Sociology"
+  ]
+} ;
+
+multi = {
+  "Science": [
+    "Computer Applications",
+    "Geography",
+    "Geology",
+    "Mathematics",
+    "Sericulture",
+    "Statistics"
+  ], "Arts": [
+    "English",
+    "Hindi"
+  ], "Social": [
+    "Education",
+    "Psychology",
+    "Public Administration",
+    "Economics",
+    "Political Science",
+    "Sociology"
+  ]
+} ;
+</script>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -242,6 +300,19 @@ if ($_POST != null) {
           <div class="d-flex justify-content-center">
             <a href="javascript:logout ()" class="btn btn-danger shadow">Logout</a>
           </div>
+
+          <div class="input-group m-2 mt-3">
+            <label class="input-group-text bg-info text-white" for="inputGroupSelect01">Major Subject</label>
+            <select required onchange="check()" name="MajorSubject" class="form-select" id="MajorSubject">
+            </select>
+          </div>
+
+          <div class="input-group m-2">
+            <label class="input-group-text bg-info text-white" for="inputGroupSelect01">Minor Subject</label>
+            <select required  name="MinorSubject" class="form-select" id="MinorSubject">
+            </select>
+          </div>
+
           <?php $counter = 0 ; foreach ($fields as $f) { ?>
             <div class="input-group m-2">
               <span class="input-group-text" id="basic-addon1"><?php echo $f ;?></span>
@@ -252,12 +323,12 @@ if ($_POST != null) {
             <label class="input-group-text bg-danger text-white" for="inputGroupSelect01">Semester 1 Multi Disciplinary</label>
             <select required onchange="check ()" name="md1" class="form-select" id="md1">
               <option></option>
-              <?php foreach ($subjects as $stream_ => $subject) {
+              <?php /* foreach ($subjects as $stream_ => $subject) {
                 if ($stream == $stream_)
                   continue ;
                 foreach ($subject as $s)
                   echo "<option>$s</option>";
-              }
+              } */
               ?>
             </select>
           </div>
@@ -266,12 +337,12 @@ if ($_POST != null) {
             <label class="input-group-text bg-info text-white" for="inputGroupSelect01">Semester 2 Multi Disciplinary</label>
             <select required onchange="check ()"  name="md" class="form-select" id="md">
               <option></option>
-              <?php foreach ($subjects as $stream_ => $subject) {
+              <?php /* foreach ($subjects as $stream_ => $subject) {
                 if ($stream == $stream_)
                   continue ;
                 foreach ($subject as $s)
                   echo "<option>$s</option>";
-              }
+              } */
               ?>
             </select>
           </div>
@@ -340,6 +411,32 @@ function logout () {
 function check () {
   md1 = document.getElementById ("md1").value
   md2 = document.getElementById ("md").value
+  maj = document.getElementById ("MajorSubject").value
+
+  majStream = "Arts"
+  mdStream = "Arts"
+  for (stream of [
+    "Arts",
+    "Science",
+    "Social"
+  ]) {
+    if (subjects [stream] == null) console.error (`no ${stream} in subjects!`)
+    if (subjects [stream].indexOf (maj) != -1) majStream = stream
+    if (multi [stream].indexOf (md2) != -1) mdStream = stream
+  }
+
+  console.log (`${maj}: ${majStream}\t\t${md2}: ${mdStream}`)
+
+  if (majStream == mdStream) {
+    document.getElementById ("md").value = ""
+    Swal.fire(
+        'Multi Disciplinary and Major Subjects must be from different streams',
+        `Multi disciplinary subject must be from a different stream than Major Subject Stream . Please choose another Multidisciplinary subject.<br><br>${md2} and ${maj} are both in ${majStream}`,
+        'error'
+      ) ;
+    
+    
+  }
 
   if (md1 == md2) {
     document.getElementById ("md").value = ""
@@ -351,4 +448,64 @@ function check () {
     
   }
 }
+
+mj = document.getElementById ("MajorSubject")
+mi = document.getElementById ("MinorSubject")
+
+for (stream in subjects) {
+  option1 = document.createElement ("option")
+  option2 = document.createElement ("option")
+  option1.setAttribute ("disabled", 1)
+  option2.setAttribute ("disabled", 1)
+  option1.innerText = stream
+  option2.innerText = stream
+  mj.appendChild (document.createElement ("option"))
+  mi.appendChild (document.createElement ("option"))
+  mj.appendChild (option1)
+  mi.appendChild (option2)
+
+  for (subject of subjects [stream]) {
+    option1 = document.createElement ("option")
+    option2 = document.createElement ("option")
+
+    option1.innerText = subject
+    option1.setAttribute ("value", subject)
+    mj.appendChild (option1)
+
+    option2.innerText = subject
+    option2.setAttribute ("value", subject)
+    mi.appendChild (option2)
+  }
+}
+
+mj = document.getElementById ("md1")
+mi = document.getElementById ("md")
+
+
+for (stream in multi) {
+  option1 = document.createElement ("option")
+  option2 = document.createElement ("option")
+  option1.setAttribute ("disabled", 1)
+  option2.setAttribute ("disabled", 1)
+  option1.innerText = stream
+  option2.innerText = stream
+  mj.appendChild (document.createElement ("option"))
+  mi.appendChild (document.createElement ("option"))
+  mj.appendChild (option1)
+  mi.appendChild (option2)
+
+  for (subject of multi [stream]) {
+    option1 = document.createElement ("option")
+    option2 = document.createElement ("option")
+
+    option1.innerText = subject
+    option1.setAttribute ("value", subject)
+    mj.appendChild (option1)
+
+    option2.innerText = subject
+    option2.setAttribute ("value", subject)
+    mi.appendChild (option2)
+  }
+}
+
 </script>
