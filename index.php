@@ -5,7 +5,9 @@
 if($_SERVER['SERVER_NAME'] != "admission6.devikacloud.in" && filter_var($_SERVER ["REMOTE_ADDR"], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
   // header("Location: https://admission6.devikacloud.in");
   $ip = $_SERVER ["REMOTE_ADDR"] ;
-  echo "<div class='alert alert-info'>$ip</div>";
+  echo "<div class='alert alert-info'>" ;
+  var_dump () ;
+  echo "</div>";
   die();
     
 }
