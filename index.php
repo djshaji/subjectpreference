@@ -222,7 +222,7 @@ if ($_POST != null) {
         </div>
 
         <?php }  else  {
-          if ($_POST ["md"] != null) {?>
+          if ($_POST ["md"] != null || $auth ["md"] != null) {?>
             <div class="alert alert-success h3"><i class="fa-solid fa-circle-check me-2"></i> Form filled successfully</div>
           <?php } ?>
           Name / Father's Name / Mother's Name: <h3 class="text-center"><?php echo $auth ["name"] ;?></h3>
@@ -240,7 +240,7 @@ if ($_POST != null) {
           <?php } ?>
           <div class="input-group mb-3">
             <label class="input-group-text bg-danger text-white" for="inputGroupSelect01">Semester 1 Multi Disciplinary</label>
-            <select onchange="check ()" name="md1" class="form-select" id="md1">
+            <select required onchange="check ()" name="md1" class="form-select" id="md1">
               <option></option>
               <?php foreach ($subjects as $stream_ => $subject) {
                 if ($stream == $stream_)
@@ -254,7 +254,7 @@ if ($_POST != null) {
 
           <div class="input-group mb-3">
             <label class="input-group-text bg-info text-white" for="inputGroupSelect01">Semester 2 Multi Disciplinary</label>
-            <select onchange="check ()"  name="md" class="form-select" id="md">
+            <select required onchange="check ()"  name="md" class="form-select" id="md">
               <option></option>
               <?php foreach ($subjects as $stream_ => $subject) {
                 if ($stream == $stream_)
