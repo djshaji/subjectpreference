@@ -42,6 +42,7 @@ $subjects = array (
 $fields = [
   "Phone",
   "Email",
+  "Class Roll Number",
   "Major Subject",
   "Minor Subject",
   "Ability Enhancement Course",
@@ -49,9 +50,21 @@ $fields = [
   "Value Added Course 2"
 ];
 
+$fields_tooltip = [
+  "Enter WhatsApp Phone Number",
+  "Enter Working Email for notification",
+  "in Semester 1",
+  "in Semester 1",
+  "in Semester 1",
+  "in Semester 1",
+  "in Semester 1",
+  "in Semester 1"
+];
+
 $_fields = array (
   "phone" => "Phone",
   "mail" => "Email",
+  "crollno"=> "ClassRollNumber",
   "major" => "MajorSubject",
   "minor" => "MinorSubject",
   "aec" => "AbilityEnhancementCourse",
@@ -147,12 +160,13 @@ if ($_POST != null) {
 
       $major = $_POST ["MajorSubject"];
       $minor = $_POST ["MinorSubject"];
+      $crollno = $_POST ["ClassRollNumber"];
       $aec = $_POST ["AbilityEnhancementCourse"];
       $vac1 = $_POST ["ValueAddedCourse1"];
       $vac2 = $_POST ["ValueAddedCourse2"];
       $phone = $_POST ["Phone"];
       $email = $_POST ["Email"];
-      $sql = "UPDATE students set phone = '$phone', mail = '$email', md='$md', major = '$major', minor = '$minor', aec = '$aec', vac1 = '$vac1', vac2 = '$vac2' where urollno = '$roll' and uid = '$reg'";
+      $sql = "UPDATE students set crollno = '$crollno', phone = '$phone', mail = '$email', md='$md', major = '$major', minor = '$minor', aec = '$aec', vac1 = '$vac1', vac2 = '$vac2' where urollno = '$roll' and uid = '$reg'";
       //  var_dump ($sql);
       $ret = $db -> query ($sql) ->fetch () ;
 
@@ -188,7 +202,11 @@ if ($_POST != null) {
         <img class="img-fluid col-12" src="logo.png" width="300">
         <h4 class="p-2 alert alert-primary m-2 text-center"><i class="fa-solid fa-pen-to-square me-2"></i>Semester 2 Subject Preference</h4>
         <?php if ($auth == null) {?>
-        <div class="input-group  m-2">
+        <div class="m-2 alert alert-warning shadow">
+        The  enrolment  process for Semester-2nd is commencing in 1st week of March, 2023 vide University letter <b>No.Exam/BP-I/2023/7818-7903 dated: 27-02-2023</b> and as per the University statutes (NEP-2020), the Multidisciplinary Course shall not be repeated in any semester. <br><br>
+        In this regard <b>all the students of Semester 1st are directed to fill this form for allotment of MD/ID by or before <b class="text-danger"> March 10, 2023.</b>  </b><br><br>The choice of MD subject is with the condition that <ol><li>the student will choose his/her MD subject from the stream other than the stream of his/her Major Course</li><li> the allotment shall be done on First Come First serve basis.</li></ol>           
+        </div>
+        <div class="input-group  m-2 mt-3">
           <span class="input-group-text" id="basic-addon1">University Roll No</span>
           <input required name="roll" type="text" class="form-control" placeholder="Enter roll number" aria-label="Username" aria-describedby="basic-addon1">
         </div>
@@ -196,6 +214,13 @@ if ($_POST != null) {
           <span class="input-group-text" id="basic-addon1">University Registration No</span>
           <input required name="reg" type="text" class="form-control" placeholder="Registration number" aria-label="Username" aria-describedby="basic-addon1">
         </div>
+        <div class="form-check m-2" id="check">
+          <input required class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            I agree to abide by guidelines of subject preference as prescribed.
+          </label>
+        </div>
+
         <?php }  else  {
           if ($_POST ["md"] != null) {?>
             <div class="alert alert-success h3"><i class="fa-solid fa-circle-check me-2"></i> Form filled successfully</div>
@@ -207,15 +232,30 @@ if ($_POST != null) {
           <div class="d-flex justify-content-center">
             <a href="javascript:logout ()" class="btn btn-danger shadow">Logout</a>
           </div>
-          <?php foreach ($fields as $f) { ?>
+          <?php $counter = 0 ; foreach ($fields as $f) { ?>
             <div class="input-group m-2">
               <span class="input-group-text" id="basic-addon1"><?php echo $f ;?></span>
-              <input required id="<?php echo str_replace (" ", "", $f);?>"  name="<?php echo str_replace (" ", "", $f);?>" type="text" class="form-control" >
+              <input placeholder="<?php echo $fields_tooltip[$counter];$counter ++ ;?>" required id="<?php echo str_replace (" ", "", $f);?>"  name="<?php echo str_replace (" ", "", $f);?>" type="text" class="form-control" >
             </div>
           <?php } ?>
           <div class="input-group mb-3">
-            <label class="input-group-text bg-info text-white" for="inputGroupSelect01">Multi Disciplinary</label>
-            <select name="md" class="form-select" id="md">
+            <label class="input-group-text bg-danger text-white" for="inputGroupSelect01">Semester 1 Multi Disciplinary</label>
+            <select onchange="check ()" name="md1" class="form-select" id="md1">
+              <option></option>
+              <?php foreach ($subjects as $stream_ => $subject) {
+                if ($stream == $stream_)
+                  continue ;
+                foreach ($subject as $s)
+                  echo "<option>$s</option>";
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="input-group mb-3">
+            <label class="input-group-text bg-info text-white" for="inputGroupSelect01">Semester 2 Multi Disciplinary</label>
+            <select onchange="check ()"  name="md" class="form-select" id="md">
+              <option></option>
               <?php foreach ($subjects as $stream_ => $subject) {
                 if ($stream == $stream_)
                   continue ;
@@ -285,5 +325,20 @@ function logout () {
    location.href = "/"
   }
 })  
+}
+
+function check () {
+  md1 = document.getElementById ("md1").value
+  md2 = document.getElementById ("md").value
+
+  if (md1 == md2) {
+    document.getElementById ("md").value = ""
+    Swal.fire(
+        'Multi Disciplinary Subject must not be same',
+        `Multi disciplinary subject must not be same as taken in Semester 1.\n\nPlease choose another subject.`,
+        'error'
+      ) ;
+    
+  }
 }
 </script>
