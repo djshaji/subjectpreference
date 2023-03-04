@@ -12,6 +12,7 @@ if($_SERVER['SERVER_NAME'] != "admission6.devikacloud.in" && filter_var($_SERVER
     
 }
 
+$full = false ;
 $CAPPING = 80 ;
 $subjects = array (
   "science" => [
@@ -136,6 +137,7 @@ if ($_POST != null) {
       $ret = [] ;
     if (sizeof ($ret) >= $CAPPING) {
       echo "<div></div>";
+      $full = true ;
       ?>
       <script>
         Swal.fire(
@@ -290,7 +292,7 @@ multi = {
         </div>
 
         <?php }  else  {
-          if ($_POST ["md"] != null || $auth ["md"] != null) {?>
+          if (!$full && ($_POST ["md"] != null || $auth ["md"] != null)) {?>
             <div class="alert alert-success h3"><i class="fa-solid fa-circle-check me-2"></i> Form filled successfully</div>
           <?php } ?>
           Name / Father's Name / Mother's Name: <h3 class="text-center"><?php echo $auth ["name"] ;?></h3>
