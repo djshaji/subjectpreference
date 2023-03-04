@@ -120,7 +120,9 @@ multi = {
     <div method="post" class="row  justify-content-center">
       <div class="border shadow p-4 col-10 m-5 row justify-content-center d-flex">
         <img class="img-fluid col-md-5" src="logo.png" width="300">
-        <h4 class="p-2 alert alert-primary m-2 text-center"><i class="fa-solid fa-pen-to-square me-2"></i><label id="count"></label></h4>
+        <div style="height: 50px" class="progress">
+          <div id="count" class="display-5 progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="1267">4 / 1267</div>
+        </div>
       </div>
       <div class="row col-12 justify-content-center"  id="main">
 
@@ -132,13 +134,13 @@ multi = {
 stats = {}
 total = 0 ;
 for (d in data) {
-  total ++ ;
   if ((data [d]['md']) == null)
     continue ;
   if (stats [data [d]['md']] == null) {
     stats [data [d]['md']] = 0 ;
   }
 
+  total ++ ;
   stats [data [d]['md']] ++ ;
 }
 
@@ -166,4 +168,5 @@ for (s in stats) {
 
 }
 document.getElementById ("count").innerText = `${total} / 1267`
+document.getElementById ("count").style.width = total / 1267
 </script>
