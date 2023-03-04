@@ -162,7 +162,7 @@ for (s in stats) {
         <h6 class="card-subtitle  text-muted">${s}</h6>
         <h2 class="p-2 card-title">${stats [s]} / 80</h5>
         <div class="progress">
-          <div class="progress-bar  ${_c}" role="progressbar" style="width: ${stats [s]}%;" aria-valuenow="${stats [s]}" aria-valuemin="0" aria-valuemax="80">${stats [s]}</div>
+          <div class="progress-bar  ${_c}" role="progressbar" style="width: ${stats [s] * (100/80)}%;" aria-valuenow="${stats [s]}" aria-valuemin="0" aria-valuemax="80">${stats [s]}</div>
         </div>
       </div>`
 
