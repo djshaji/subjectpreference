@@ -131,7 +131,7 @@ if ($_POST != null) {
     // set in db
     $md = $_POST ["md"];
     $sql = "SELECT * from students where md = '$md'";
-    $ret = $db -> query ($sql) ->fetch () ;
+    $ret = $db -> query ($sql) ->fetchAll () ;
     if ($ret === false)
       $ret = [] ;
     if (sizeof ($ret) >= $CAPPING) {
