@@ -168,5 +168,5 @@ for (s in stats) {
 
 }
 document.getElementById ("count").innerText = `${total} / 1267`
-document.getElementById ("count").style.width = total / 1267 * 100
+document.getElementById ("count").setAttribute ("style", "width: " + (total / 1267) * 100 + "%")
 </script>
