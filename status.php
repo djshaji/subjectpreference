@@ -83,6 +83,9 @@ subjects = {
     "History",
     "Political Science",
     "Sociology"
+  ], "BCA": [
+    "Problem Solving using C",
+    "Computer Fundamentals"
   ]
 } ;
 
