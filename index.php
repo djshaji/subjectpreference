@@ -13,7 +13,7 @@ if($_SERVER['SERVER_NAME'] != "admission6.devikacloud.in" && filter_var($_SERVER
 }
 
 $full = false ;
-$CAPPING = 80 ;
+$CAPPING = 85 ;
 $subjects = array (
   "science" => [
     "Sericulture",
