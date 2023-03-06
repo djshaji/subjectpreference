@@ -163,9 +163,9 @@ for (s in stats) {
   card.innerHTML =
     `<div class="card-body">
         <h6 class="card-subtitle  text-muted">${s}</h6>
-        <h2 class="p-2 card-title">${stats [s]} / 80</h5>
+        <h2 class="p-2 card-title">${stats [s]} / 85</h5>
         <div class="progress">
-          <div class="progress-bar  ${_c}" role="progressbar" style="width: ${stats [s] * (100/80)}%;" aria-valuenow="${stats [s]}" aria-valuemin="0" aria-valuemax="80">${stats [s]}</div>
+          <div class="progress-bar  ${_c}" role="progressbar" style="width: ${stats [s] * (100/85)}%;" aria-valuenow="${stats [s]}" aria-valuemin="0" aria-valuemax="85">${stats [s]}</div>
         </div>
       </div>`
 
