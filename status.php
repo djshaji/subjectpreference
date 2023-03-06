@@ -14,7 +14,7 @@
 
 <script>data = {}</script>
 <?php
-$CAPPING = 80 ;
+$CAPPING = 85 ;
 $subjects = array (
   "science" => [
     "Sericulture",
