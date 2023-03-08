@@ -350,6 +350,7 @@ multi = {
               } */
               ?>
             </select>
+            <a href="/status1.php" class="btn btn-success">Seats Left</a>
           </div>
 
           <div class="form-check" id="check">
