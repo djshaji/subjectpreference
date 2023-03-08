@@ -350,8 +350,12 @@ multi = {
               } */
               ?>
             </select>
-            <a href="/status1.php" class="btn btn-success">Seats Left</a>
+
           </div>
+
+	  <div class="justify-content-center d-flex">
+            <a href="/status1.php" class="btn btn-success">Click here for Available Seats</a>
+	  </div>
 
           <div class="form-check" id="check">
             <input required class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
