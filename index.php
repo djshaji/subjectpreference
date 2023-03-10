@@ -236,6 +236,9 @@ subjects = {
   ], "BCA": [
     "Problem Solving using C",
     "Computer Fundamentals"
+  ], "BCOM": [
+    "Financial accounting",
+    "Fundamentals of management"
   ]
 } ;
 
